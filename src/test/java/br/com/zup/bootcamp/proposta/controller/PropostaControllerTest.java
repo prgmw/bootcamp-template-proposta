@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -37,6 +39,16 @@ public class PropostaControllerTest {
 
 	@MockBean
 	private IPropostaService propostaService;
+	
+	@Before
+	public void setUp() {
+		System.out.println("============================= Iniciando Teste =============================");
+	}
+	
+	@After
+	public void setDown() {
+		System.out.println("=================================== Fim ===================================");
+	}
 
 	@Test
 	public void obterPropostaSucessoTest() throws Exception {
