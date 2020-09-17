@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.domain.data;
+package br.com.zup.bootcamp.proposta.dto.input;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PropostaDTO {
+public class PropostaInput {
 
 	@JsonProperty("id")
 	private Long id;

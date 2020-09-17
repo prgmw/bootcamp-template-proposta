@@ -23,8 +23,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.zup.bootcamp.proposta.domain.data.PropostaDTO;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
+import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
 
 @RunWith(SpringRunner.class)
@@ -60,7 +60,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaSucessoTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome("Usuario Teste").documento("094.246.920-80")
+		PropostaInput entrada = PropostaInput.builder().nome("Usuario Teste").documento("094.246.920-80")
 				.email("teste@teste.com.br").endereco("Rua Teste, numero 500").salario(new BigDecimal(1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();
@@ -78,7 +78,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaSemNomeFalhaTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome(null).documento("094.246.920-80").email("teste@teste.com.br")
+		PropostaInput entrada = PropostaInput.builder().nome(null).documento("094.246.920-80").email("teste@teste.com.br")
 				.endereco("Rua Teste, numero 500").salario(new BigDecimal(1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();
@@ -96,7 +96,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaSemDocumentoFalhaTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome("Usuario Teste").documento(null).email("teste@teste.com.br")
+		PropostaInput entrada = PropostaInput.builder().nome("Usuario Teste").documento(null).email("teste@teste.com.br")
 				.endereco("Rua Teste, numero 500").salario(new BigDecimal(1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();
@@ -114,7 +114,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaEmailFalhaTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome("Usuario Teste").documento("094.246.920-80").email(null)
+		PropostaInput entrada = PropostaInput.builder().nome("Usuario Teste").documento("094.246.920-80").email(null)
 				.endereco("Rua Teste, numero 500").salario(new BigDecimal(1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();
@@ -131,7 +131,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaSemEnderecoFalhaTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome("Usuario Teste").documento("094.246.920-80")
+		PropostaInput entrada = PropostaInput.builder().nome("Usuario Teste").documento("094.246.920-80")
 				.email("teste@teste.com.br").endereco(null).salario(new BigDecimal(1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();
@@ -149,7 +149,7 @@ public class PropostaControllerTest {
 
 	@Test
 	public void incluirPropostaSalarioNegativoFalhaTest() throws Exception {
-		PropostaDTO entrada = PropostaDTO.builder().nome("Usuario Teste").documento("094.246.920-80")
+		PropostaInput entrada = PropostaInput.builder().nome("Usuario Teste").documento("094.246.920-80")
 				.email("teste@teste.com.br").endereco("Rua Teste, numero 500").salario(new BigDecimal(-1000)).build();
 
 		Optional<Proposta> retorno = obterPropostaSaida();

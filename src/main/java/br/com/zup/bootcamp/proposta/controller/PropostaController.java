@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.zup.bootcamp.proposta.domain.data.PropostaDTO;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
+import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
 
 @RestController
@@ -37,7 +37,7 @@ public class PropostaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Proposta> criar(@Valid @RequestBody PropostaDTO propostaDTO, HttpServletResponse response) {
+	public ResponseEntity<Proposta> criar(@Valid @RequestBody PropostaInput propostaDTO, HttpServletResponse response) {
 		Optional<Proposta> proposta = propostaService.criarProposta(propostaDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(proposta.get().getId())
 				.toUri();

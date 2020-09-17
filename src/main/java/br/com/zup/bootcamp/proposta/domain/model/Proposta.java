@@ -1,6 +1,7 @@
 package br.com.zup.bootcamp.proposta.domain.model;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,13 +17,13 @@ import javax.validation.constraints.Positive;
 import br.com.zup.bootcamp.proposta.infrastructure.validator.IsCpfCnpjValid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter 
 @Entity
 @Table(name = "proposta")
 public class Proposta {
@@ -54,5 +55,15 @@ public class Proposta {
 	@Positive
 	@Column(name = "salario")
 	private BigDecimal salario;
+	
+	@Column(name = "status")
+	private Status status;
+	
+	public void definirStatus(Optional<AvaliacaoRestricao> avaliacao) {
+		this.status = Status.NAO_ELEGIVEL;
+		if(avaliacao.get() == AvaliacaoRestricao.SEM_RESTRICAO) {
+			this.status = Status.ELEGIVEL;
+		}		
+	}
 
 }

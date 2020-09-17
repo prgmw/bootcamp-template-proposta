@@ -18,11 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.zup.bootcamp.proposta.domain.data.PropostaDTO;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
+import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
 import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
-import br.com.zup.bootcamp.proposta.service.impl.PropostaService;
+import br.com.zup.bootcamp.proposta.service.impl.PropostaServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,7 +32,7 @@ public class PropostaServiceTest {
 	private PropostaRepository propostaRepo;
 
 	@Autowired
-	private PropostaService propostaService;
+	private PropostaServiceImpl propostaService;
 	
 	@Before
 	public void setUp() {
@@ -46,7 +46,7 @@ public class PropostaServiceTest {
 
 	@Test
 	public void criarPropostaSucessoTest() {
-		PropostaDTO entrada = PropostaDTO.builder()
+		PropostaInput entrada = PropostaInput.builder()
 				.nome("Usuario Teste")
 				.documento("094.246.920-80")
 				.email("teste@teste.com.br")
@@ -74,7 +74,7 @@ public class PropostaServiceTest {
 	
 	@Test(expected = ApiErroException.class)
 	public void criarPropostaExistenteComFalhaTest() {
-		PropostaDTO entrada = PropostaDTO.builder()
+		PropostaInput entrada = PropostaInput.builder()
 				.nome("Usuario Teste")
 				.documento("094.246.920-80")
 				.email("teste@teste.com.br")
