@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.dto.output;
+package br.com.zup.bootcamp.proposta.gateway.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +10,7 @@ import lombok.Data;
 public class AnaliseResponse {
 
 	@JsonProperty("idProposta")
-	private Long idProposta;
+	private String idProposta;
 
 	@JsonProperty("documento")
 	private String documento;

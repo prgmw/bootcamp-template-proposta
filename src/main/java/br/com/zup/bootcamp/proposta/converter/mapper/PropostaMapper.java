@@ -1,9 +1,9 @@
-package br.com.zup.bootcamp.proposta.infrastructure.mapper;
+package br.com.zup.bootcamp.proposta.converter.mapper;
 
 import org.mapstruct.Mapper;
 
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 
 @Mapper(componentModel="spring")
 public interface PropostaMapper {

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
 
 @RestController

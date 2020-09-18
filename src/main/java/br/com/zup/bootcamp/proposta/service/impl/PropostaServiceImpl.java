@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import br.com.zup.bootcamp.proposta.domain.model.AvaliacaoRestricao;
+import br.com.zup.bootcamp.proposta.component.MensagemParametrizada;
+import br.com.zup.bootcamp.proposta.converter.mapper.PropostaMapper;
+import br.com.zup.bootcamp.proposta.domain.model.Restricao;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
-import br.com.zup.bootcamp.proposta.infrastructure.configuration.MensagemParametrizada;
-import br.com.zup.bootcamp.proposta.infrastructure.mapper.PropostaMapper;
+import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
 import br.com.zup.bootcamp.proposta.service.IAvaliacaoRestricaoService;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
@@ -54,7 +54,7 @@ public class PropostaServiceImpl implements IPropostaService {
 		
 		propostaRepository.saveAndFlush(proposta);
 		
-		AvaliacaoRestricao resultadoAvaliacao = avaliacaoService.avaliar(Optional.of(proposta));
+		Restricao resultadoAvaliacao = avaliacaoService.obterAvaliacaoRisco(Optional.of(proposta));
 		proposta.definirStatus(Optional.ofNullable(resultadoAvaliacao));
 		
 		return Optional.ofNullable(propostaRepository.save(proposta));

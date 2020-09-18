@@ -1,7 +1,5 @@
 package br.com.zup.bootcamp.proposta.domain.model;
 
-public enum Status {
-
-	ELEGIVEL, NAO_ELEGIVEL;
-
+public enum Restricao {
+	COM_RESTRICAO, SEM_RESTRICAO
 }

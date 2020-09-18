@@ -5,16 +5,20 @@ import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.websocket.OnOpen;
 
-import br.com.zup.bootcamp.proposta.infrastructure.validator.IsCpfCnpjValid;
+import br.com.zup.bootcamp.proposta.validator.IsCpfCnpjValid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter 
+@Getter
 @Entity
 @Table(name = "proposta")
 public class Proposta {
@@ -55,15 +59,18 @@ public class Proposta {
 	@Positive
 	@Column(name = "salario")
 	private BigDecimal salario;
-	
-	@Column(name = "status")
-	private Status status;
-	
-	public void definirStatus(Optional<AvaliacaoRestricao> avaliacao) {
-		this.status = Status.NAO_ELEGIVEL;
-		if(avaliacao.get() == AvaliacaoRestricao.SEM_RESTRICAO) {
-			this.status = Status.ELEGIVEL;
-		}		
-	}
 
+	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
+	private Status status;
+
+	@OneToOne(mappedBy = "proposta")
+	private Emissao emissao;
+
+	public void definirStatus(Optional<Restricao> avaliacao) {
+		this.status = Status.NAO_ELEGIVEL;
+		if (avaliacao.get() == Restricao.SEM_RESTRICAO) {
+			this.status = Status.ELEGIVEL;
+		}
+	}
 }

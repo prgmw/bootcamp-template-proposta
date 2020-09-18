@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.dto.input;
+package br.com.zup.bootcamp.proposta.gateway.dto.input;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import br.com.zup.bootcamp.proposta.infrastructure.validator.IsCpfCnpjValid;
+import br.com.zup.bootcamp.proposta.validator.IsCpfCnpjValid;
 import lombok.Builder;
 import lombok.Data;
 

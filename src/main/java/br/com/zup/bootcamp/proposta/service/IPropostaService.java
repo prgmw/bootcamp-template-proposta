@@ -3,7 +3,7 @@ package br.com.zup.bootcamp.proposta.service;
 import java.util.Optional;
 
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 
 public interface IPropostaService {
 

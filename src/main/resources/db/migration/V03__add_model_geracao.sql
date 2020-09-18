@@ -1,0 +1,8 @@
+CREATE TABLE geracao (
+   id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+   proposta_id BIGINT(20) NOT NULL,
+   emissao_id BIGINT(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+

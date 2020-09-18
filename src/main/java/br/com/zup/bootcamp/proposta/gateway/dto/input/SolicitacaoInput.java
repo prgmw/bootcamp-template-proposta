@@ -1,13 +1,13 @@
-package br.com.zup.bootcamp.proposta.dto.input;
+package br.com.zup.bootcamp.proposta.gateway.dto.input;
 
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class SolicitacaoInput {
 
 	@JsonProperty("idProposta")

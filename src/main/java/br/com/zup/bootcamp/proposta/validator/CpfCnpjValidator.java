@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.infrastructure.validator;
+package br.com.zup.bootcamp.proposta.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.infrastructure.validator;
+package br.com.zup.bootcamp.proposta.validator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

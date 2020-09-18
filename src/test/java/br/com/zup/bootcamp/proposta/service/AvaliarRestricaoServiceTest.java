@@ -18,21 +18,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import br.com.zup.bootcamp.proposta.domain.model.Restricao;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
 import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.gateway.dto.output.AnaliseResponse;
 import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
 import br.com.zup.bootcamp.proposta.service.impl.PropostaServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PropostaServiceTest {
+public class AvaliarRestricaoServiceTest {
 
 	@MockBean
 	private PropostaRepository propostaRepo;
 
 	@Autowired
-	private PropostaServiceImpl propostaService;
+	private IPropostaService propostaService;
+	
+	@MockBean
+	private IAvaliacaoRestricaoService avaliacaoService;
 	
 	@Before
 	public void setUp() {
@@ -61,9 +66,10 @@ public class PropostaServiceTest {
 				.endereco("Rua Teste, numero 500")
 				.salario(new BigDecimal(1000))
 				.build();
-
+		
 		when(propostaRepo.obterPropostaPorDocumento(Mockito.anyString())).thenReturn(Optional.empty());
 		when(propostaRepo.save(Mockito.anyObject())).thenReturn(proposta);
+		when(avaliacaoService.obterAvaliacaoRisco(Mockito.anyObject())).thenReturn(Restricao.SEM_RESTRICAO);
 		
 		Optional<Proposta> saida = propostaService.criarProposta(entrada);
 

@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.infrastructure.configuration;
+package br.com.zup.bootcamp.proposta.component;
 
 import java.util.Locale;
 

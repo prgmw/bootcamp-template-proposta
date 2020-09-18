@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.infrastructure;
+package br.com.zup.bootcamp.proposta.exception.config;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
 import br.com.zup.bootcamp.proposta.exception.MensagemPadronizada;
+import feign.FeignException;
+import feign.FeignException.FeignClientException;
 
 @RestControllerAdvice
-public class BeanValidationHandlerAdvice {
+public class ValidatorHandlerAdvice {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<MensagemPadronizada> handle(MethodArgumentNotValidException methodArgumentNotValidException) {
@@ -39,6 +41,15 @@ public class BeanValidationHandlerAdvice {
 
 	    MensagemPadronizada erroPadronizado = new MensagemPadronizada(mensagens);
 	    return ResponseEntity.status(apiErroException.getHttpStatus()).body(erroPadronizado);
+	}
+	
+	@ExceptionHandler(FeignException.class)
+	public ResponseEntity<MensagemPadronizada> handleFeignException(FeignException feignException) {
+	    Collection<String> mensagens = new ArrayList<>();
+	    mensagens.add(feignException.getMessage());
+
+	    MensagemPadronizada erroPadronizado = new MensagemPadronizada(mensagens);
+	    return ResponseEntity.status(feignException.status()).body(erroPadronizado);
 	}
 	
 }

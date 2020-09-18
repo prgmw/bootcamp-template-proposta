@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
-import br.com.zup.bootcamp.proposta.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
 
 @RunWith(SpringRunner.class)
