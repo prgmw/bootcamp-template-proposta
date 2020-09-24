@@ -1,7 +1,8 @@
-CREATE TABLE geracao (
+CREATE TABLE emissao (
    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
    proposta_id BIGINT(20) NOT NULL,
-   emissao_id BIGINT(20) NOT NULL
+   emissao_id VARCHAR(100) NOT NULL,
+   FOREIGN KEY (proposta_id) REFERENCES proposta(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

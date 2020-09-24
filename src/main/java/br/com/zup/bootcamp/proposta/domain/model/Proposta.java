@@ -3,6 +3,7 @@ package br.com.zup.bootcamp.proposta.domain.model;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.websocket.OnOpen;
 
 import br.com.zup.bootcamp.proposta.validator.IsCpfCnpjValid;
 import lombok.AllArgsConstructor;
@@ -64,8 +64,12 @@ public class Proposta {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@OneToOne(mappedBy = "proposta")
+	@OneToOne(mappedBy = "proposta", cascade = CascadeType.ALL)
 	private Emissao emissao;
+	
+	public void setEmissao(Emissao emissao) {
+		this.emissao = emissao;
+	}
 
 	public void definirStatus(Optional<Restricao> avaliacao) {
 		this.status = Status.NAO_ELEGIVEL;

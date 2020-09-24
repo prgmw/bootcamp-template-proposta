@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.After;
@@ -62,7 +63,7 @@ public class PropostaServiceTest {
 				.salario(new BigDecimal(1000))
 				.build();
 
-		when(propostaRepo.obterPropostaPorDocumento(Mockito.anyString())).thenReturn(Optional.empty());
+		when(propostaRepo.obterPropostaPorDocumento(Mockito.anyString())).thenReturn(Collections.emptyList());
 		when(propostaRepo.save(Mockito.anyObject())).thenReturn(proposta);
 		
 		Optional<Proposta> saida = propostaService.criarProposta(entrada);
@@ -82,7 +83,7 @@ public class PropostaServiceTest {
 				.salario(new BigDecimal(1000))
 				.build();
 
-		Optional<Collection<Proposta>> retorno = Optional.ofNullable(obterPropostaSaida());
+		Collection<Proposta> retorno = obterPropostaSaida();
 		when(propostaRepo.obterPropostaPorDocumento(Mockito.anyString())).thenReturn(retorno);
 		
 		propostaService.criarProposta(entrada);

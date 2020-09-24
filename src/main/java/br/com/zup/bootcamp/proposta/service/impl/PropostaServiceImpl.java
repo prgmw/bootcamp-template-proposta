@@ -46,13 +46,13 @@ public class PropostaServiceImpl implements IPropostaService {
 	@Transactional
 	public Optional<Proposta> criarProposta(PropostaInput propostaDTO) {
 		Proposta proposta = propostaMapper.propostaDTOToProposta(propostaDTO);
-		if (propostaRepository.obterPropostaPorDocumento(propostaDTO.getDocumento()).isPresent()) {
+		if (!propostaRepository.obterPropostaPorDocumento(propostaDTO.getDocumento()).isEmpty()) {
 			logger.error(mensagem.get("documento.existente"), proposta.getDocumento());
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,
 					MessageFormat.format(mensagem.get("documento.existente"), proposta.getDocumento()));
 		}
 		
-		propostaRepository.saveAndFlush(proposta);
+		propostaRepository.save(proposta);
 		
 		Restricao resultadoAvaliacao = avaliacaoService.obterAvaliacaoRisco(Optional.of(proposta));
 		proposta.definirStatus(Optional.ofNullable(resultadoAvaliacao));

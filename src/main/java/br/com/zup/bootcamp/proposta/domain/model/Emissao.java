@@ -28,13 +28,12 @@ public class Emissao {
 	@Column(name = "id")
 	private Long id;
 
-	@NotNull
 	@OneToOne
 	@JoinColumn(name = "proposta_id")
 	private Proposta proposta;
 
 	@NotNull
 	@Column(name = "emissao_id")
-	private Long emissaoId;
+	private String emissaoId;
 
 }
