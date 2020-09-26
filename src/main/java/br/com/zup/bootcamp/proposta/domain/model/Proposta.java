@@ -18,6 +18,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.zup.bootcamp.proposta.validator.IsCpfCnpjValid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,6 +66,7 @@ public class Proposta {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	@JsonManagedReference
 	@OneToOne(mappedBy = "proposta", cascade = CascadeType.ALL)
 	private Emissao emissao;
 	
