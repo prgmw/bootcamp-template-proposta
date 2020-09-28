@@ -1,11 +1,10 @@
 package br.com.zup.bootcamp.proposta.component;
 
-import java.util.Locale;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class MensagemParametrizada {
 
     @PostConstruct
     private void init() {
-        accessor = new MessageSourceAccessor(messageSource, Locale.ROOT);
+        accessor = new MessageSourceAccessor(messageSource, LocaleContextHolder.getLocale());
     }
 
     public String get(String code) {

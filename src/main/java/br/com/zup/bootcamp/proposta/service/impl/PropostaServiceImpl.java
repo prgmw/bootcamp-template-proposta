@@ -12,11 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.zup.bootcamp.proposta.component.MensagemParametrizada;
-import br.com.zup.bootcamp.proposta.converter.mapper.PropostaMapper;
-import br.com.zup.bootcamp.proposta.domain.model.Restricao;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
+import br.com.zup.bootcamp.proposta.domain.model.Restricao;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
-import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
 import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
 import br.com.zup.bootcamp.proposta.service.IAvaliacaoRestricaoService;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
@@ -28,15 +26,12 @@ public class PropostaServiceImpl implements IPropostaService {
 
 	@Autowired
 	private IAvaliacaoRestricaoService avaliacaoService;
-	
+
 	@Autowired
 	private PropostaRepository propostaRepository;
 
 	@Autowired
 	private MensagemParametrizada mensagem;
-
-	@Autowired
-	private PropostaMapper propostaMapper;
 
 	@Transactional
 	public Optional<Proposta> obterProposta(Long id) {
@@ -44,19 +39,18 @@ public class PropostaServiceImpl implements IPropostaService {
 	}
 
 	@Transactional
-	public Optional<Proposta> criarProposta(PropostaInput propostaDTO) {
-		Proposta proposta = propostaMapper.propostaDTOToProposta(propostaDTO);
-		if (!propostaRepository.obterPropostaPorDocumento(propostaDTO.getDocumento()).isEmpty()) {
-			logger.error(mensagem.get("documento.existente"), proposta.getDocumento());
+	public Optional<Proposta> criarProposta(Proposta proposta) {
+		if (!propostaRepository.obterPropostaPorDocumento(proposta.getDocumento()).isEmpty()) {
+			logger.error(mensagem.get("proposta.documento.existente"), proposta.getDocumento());
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,
-					MessageFormat.format(mensagem.get("documento.existente"), proposta.getDocumento()));
+					MessageFormat.format(mensagem.get("proposta.documento.existente"), proposta.getDocumento()));
 		}
-		
+
 		propostaRepository.save(proposta);
-		
+
 		Restricao resultadoAvaliacao = avaliacaoService.obterAvaliacaoRisco(Optional.of(proposta));
 		proposta.definirStatus(Optional.ofNullable(resultadoAvaliacao));
-		
+
 		return Optional.ofNullable(propostaRepository.save(proposta));
 	}
 
