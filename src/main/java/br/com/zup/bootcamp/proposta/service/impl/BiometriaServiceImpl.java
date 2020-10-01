@@ -18,6 +18,7 @@ import br.com.zup.bootcamp.proposta.domain.model.Proposta;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
 import br.com.zup.bootcamp.proposta.repository.BiometriaRepository;
 import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
+import br.com.zup.bootcamp.proposta.service.IBiometriaService;
 
 @Service
 public class BiometriaServiceImpl implements IBiometriaService {
@@ -47,7 +48,7 @@ public class BiometriaServiceImpl implements IBiometriaService {
 
 		if (biometriaAssociada.size() > 0) {
 			logger.error(mensagem.get("proposta.biometria.invalida"), idProposta);
-			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,
+			throw new ApiErroException(HttpStatus.BAD_REQUEST,
 					MessageFormat.format(mensagem.get("proposta.biometria.invalida"), idProposta));
 		}
 

@@ -17,9 +17,11 @@ import br.com.zup.bootcamp.proposta.validator.IsBase64;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "biometria")
@@ -41,10 +43,6 @@ public class Biometria {
 
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao;
-
-	public Biometria() {
-		dataCriacao = LocalDateTime.now();
-	}
 
 	public void setProposta(Proposta proposta) {
 		this.proposta = proposta;

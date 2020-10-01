@@ -3,6 +3,7 @@ package br.com.zup.bootcamp.proposta.controller;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -22,11 +23,11 @@ import br.com.zup.bootcamp.proposta.domain.model.Biometria;
 import br.com.zup.bootcamp.proposta.domain.model.Proposta;
 import br.com.zup.bootcamp.proposta.gateway.dto.input.BiometriaInput;
 import br.com.zup.bootcamp.proposta.gateway.dto.input.PropostaInput;
+import br.com.zup.bootcamp.proposta.service.IBiometriaService;
 import br.com.zup.bootcamp.proposta.service.IPropostaService;
-import br.com.zup.bootcamp.proposta.service.impl.IBiometriaService;
 
 @RestController
-@RequestMapping("/proposta")
+@RequestMapping("/propostas")
 public class PropostaController {
 
 	@Autowired

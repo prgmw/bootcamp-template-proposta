@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.exception.config;
+package br.com.zup.bootcamp.proposta.exception.handler;
 
 import java.util.ArrayList;
 import java.util.Collection;

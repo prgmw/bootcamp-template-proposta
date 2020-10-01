@@ -1,0 +1,28 @@
+version: '3'
+services:
+  
+  docker-mysql:
+    image: mysql:5.7
+    container_name: mysql-cartoes
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql"
+    ports:
+      - "3306:3306"
+    volumes:
+      - /opt/docker/volumes/mysql:/var/lib/mysql
+    networks:
+      - cartoes
+
+  proposta-app:
+    image: "zupacademy/proposta:1.1"
+    container_name: proposta-app
+    ports:
+      - "4000:8080"
+    depends_on:
+      - docker-mysql
+    networks:
+      - cartoes  
+
+networks: 
+  cartoes:
+    driver: bridge

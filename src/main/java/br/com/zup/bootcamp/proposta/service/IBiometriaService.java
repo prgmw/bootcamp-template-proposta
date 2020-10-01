@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta.service.impl;
+package br.com.zup.bootcamp.proposta.service;
 
 import java.util.Optional;
 
