@@ -16,13 +16,13 @@ public class ProcessamentoEmissoes {
 	@Autowired
 	private IAssociacaoCartaoService associacaoCartaoService;
 
-	@Scheduled(fixedDelayString = "${periodicidade.emissao-cartao}")
-	private void executaEmissao() {
-		emissaoCartaoService.emitirCartao();
-	}
-
-	@Scheduled(fixedDelayString = "${periodicidade.associacao-cartao}")
-	private void executaAssociacao() {
-		associacaoCartaoService.associarCartao();
-	}
+//	@Scheduled(fixedDelayString = "${periodicidade.emissao-cartao}")
+//	private void executaEmissao() {
+//		emissaoCartaoService.emitirCartao();
+//	}
+//
+//	@Scheduled(fixedDelayString = "${periodicidade.associacao-cartao}")
+//	private void executaAssociacao() {
+//		associacaoCartaoService.associarCartao();
+//	}
 }

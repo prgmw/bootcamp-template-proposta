@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.zup.bootcamp.proposta.component.MensagemParametrizada;
 import br.com.zup.bootcamp.proposta.domain.model.Biometria;
-import br.com.zup.bootcamp.proposta.domain.model.Proposta;
+import br.com.zup.bootcamp.proposta.domain.model.Cartao;
 import br.com.zup.bootcamp.proposta.exception.ApiErroException;
 import br.com.zup.bootcamp.proposta.repository.BiometriaRepository;
-import br.com.zup.bootcamp.proposta.repository.PropostaRepository;
+import br.com.zup.bootcamp.proposta.repository.CartaoRepository;
 import br.com.zup.bootcamp.proposta.service.IBiometriaService;
 
 @Service
@@ -29,41 +29,41 @@ public class BiometriaServiceImpl implements IBiometriaService {
 	private BiometriaRepository biometriaRepository;
 
 	@Autowired
-	private PropostaRepository propostaRepository;
+	private CartaoRepository cartaoRepository;
 
 	@Autowired
 	private MensagemParametrizada mensagem;
 
 	@Override
-	public Optional<Biometria> cadastrar(Long idProposta, Biometria biometria) {
-		Optional<Proposta> propostaSalva = propostaRepository.findById(idProposta);
-		if (!propostaSalva.isPresent()) {
-			logger.error(mensagem.get("proposta.invalida"), idProposta);
+	public Optional<Biometria> cadastrar(Long idCartao, Biometria biometria) {
+		Optional<Cartao> cartaoPersistido = cartaoRepository.findById(idCartao);
+		if (!cartaoPersistido.isPresent()) {
+			logger.error(mensagem.get("proposta.invalida"), idCartao);
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY,
-					MessageFormat.format(mensagem.get("proposta.invalida"), idProposta));
+					MessageFormat.format(mensagem.get("proposta.invalida"), idCartao));
 		}
 
-		List<Biometria> biometriaAssociada = propostaSalva.get().getBiometria().stream()
+		List<Biometria> biometriaAssociada = cartaoPersistido.get().getBiometria().stream()
 				.filter(b -> b.getIdentificador().equals(biometria.getIdentificador())).collect(Collectors.toList());
 
 		if (biometriaAssociada.size() > 0) {
-			logger.error(mensagem.get("proposta.biometria.invalida"), idProposta);
+			logger.error(mensagem.get("proposta.biometria.invalida"), idCartao);
 			throw new ApiErroException(HttpStatus.BAD_REQUEST,
-					MessageFormat.format(mensagem.get("proposta.biometria.invalida"), idProposta));
+					MessageFormat.format(mensagem.get("proposta.biometria.invalida"), idCartao));
 		}
 
 		Biometria novaBiometria = Biometria.builder()
 				.dataCriacao(LocalDateTime.now())
 				.identificador(biometria.getIdentificador())
-				.proposta(propostaSalva.get()).build();
+				.cartao(cartaoPersistido.get()).build();
 
 		return Optional.ofNullable(biometriaRepository.save(novaBiometria));
 	}
 
 	@Override
-	public Optional<Biometria> obter(Long idProposta, Long idBiometria) {
-		Optional<Proposta> proposta = propostaRepository.findById(idProposta);
-		List<Biometria> biometriaAssociada = proposta.get().getBiometria().stream()
+	public Optional<Biometria> obter(Long idCartao, Long idBiometria) {
+		Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
+		List<Biometria> biometriaAssociada = cartao.get().getBiometria().stream()
 				.filter(b -> b.getId().equals(idBiometria)).collect(Collectors.toList());
 		if (biometriaAssociada.size() > 0) {
 			return biometriaRepository.findById(idBiometria);

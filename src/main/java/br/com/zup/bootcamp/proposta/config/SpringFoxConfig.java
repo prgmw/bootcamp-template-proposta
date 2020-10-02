@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.proposta;
+package br.com.zup.bootcamp.proposta.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

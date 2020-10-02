@@ -1,8 +1,6 @@
 package br.com.zup.bootcamp.proposta.domain.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
@@ -13,7 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -21,6 +18,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.zup.bootcamp.proposta.validator.IsCpfCnpjValid;
@@ -69,16 +67,13 @@ public class Proposta {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	@JsonIgnore
 	@JsonManagedReference
 	@OneToOne(mappedBy = "proposta", cascade = CascadeType.ALL)
-	private Emissao emissao;
+	private Cartao cartao;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
-	private Collection<Biometria> biometria;
-	
-	public void setEmissao(Emissao emissao) {
-		this.emissao = emissao;
+	public void setEmissao(Cartao cartao) {
+		this.cartao = cartao;
 	}
 
 	public void definirStatus(Optional<Restricao> avaliacao) {
@@ -88,10 +83,4 @@ public class Proposta {
 		}
 	}
 
-	public void adicionarBiometria(Biometria biometria) {
-		if(!Optional.ofNullable(this.biometria).isPresent()) {
-			this.biometria = new ArrayList<Biometria>();
-		}
-		this.biometria.add(biometria);
-	}
 }

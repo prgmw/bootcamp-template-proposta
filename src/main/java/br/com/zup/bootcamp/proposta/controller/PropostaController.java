@@ -3,7 +3,6 @@ package br.com.zup.bootcamp.proposta.controller;
 import java.net.URI;
 import java.util.Optional;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -61,29 +60,29 @@ public class PropostaController {
 		return ResponseEntity.created(uri).body(propostaSaved.get());
 	}
 
-	@PostMapping("/{propostaId}/biometria")
-	public ResponseEntity<Biometria> criarBiometria(@PathVariable(name = "propostaId") Long idProposta,
-			@Valid @RequestBody BiometriaInput biometriaDTO, HttpServletResponse response) {
-		Optional<Proposta> proposta = propostaService.obterProposta(idProposta);
-		if (!proposta.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-
-		Optional<Biometria> biometriaPersistida = biometriaService.cadastrar(idProposta,
-				biometriaMapper.biometriaDTOToBiometria(biometriaDTO));
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{biometriaId}")
-				.buildAndExpand(idProposta, biometriaPersistida.get().getId()).toUri();
-		response.setHeader("Location", uri.toASCIIString());
-		return ResponseEntity.created(uri).body(biometriaPersistida.get());
-	}
-
-	@GetMapping("/{propostaId}/biometria/{biometriaId}")
-	public ResponseEntity<?> buscarBiometria(@PathVariable(name = "propostaId") Long idProposta,
-			@PathVariable(name = "biometriaId") Long idBiometria, HttpServletResponse response) {
-		Optional<Biometria> biometria = biometriaService.obter(idProposta, idBiometria);
-		if (!biometria.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(biometria.get());
-	}
+//	@PostMapping("/{propostaId}/biometria")
+//	public ResponseEntity<Biometria> criarBiometria(@PathVariable(name = "propostaId") Long idProposta,
+//			@Valid @RequestBody BiometriaInput biometriaDTO, HttpServletResponse response) {
+//		Optional<Proposta> proposta = propostaService.obterProposta(idProposta);
+//		if (!proposta.isPresent()) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//		Optional<Biometria> biometriaPersistida = biometriaService.cadastrar(idProposta,
+//				biometriaMapper.biometriaDTOToBiometria(biometriaDTO));
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{biometriaId}")
+//				.buildAndExpand(idProposta, biometriaPersistida.get().getId()).toUri();
+//		response.setHeader("Location", uri.toASCIIString());
+//		return ResponseEntity.created(uri).body(biometriaPersistida.get());
+//	}
+//
+//	@GetMapping("/{propostaId}/biometria/{biometriaId}")
+//	public ResponseEntity<?> buscarBiometria(@PathVariable(name = "propostaId") Long idProposta,
+//			@PathVariable(name = "biometriaId") Long idBiometria, HttpServletResponse response) {
+//		Optional<Biometria> biometria = biometriaService.obter(idProposta, idBiometria);
+//		if (!biometria.isPresent()) {
+//			return ResponseEntity.notFound().build();
+//		}
+//		return ResponseEntity.ok(biometria.get());
+//	}
 }

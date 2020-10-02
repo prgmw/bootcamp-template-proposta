@@ -14,7 +14,7 @@ public interface PropostaRepository extends JpaRepository<Proposta, Long> {
 	@Query("Select p From Proposta p WHERE p.documento=?1")
 	public Collection<Proposta> obterPropostaPorDocumento(String documento);
 
-	@Query("SELECT p FROM Proposta p LEFT JOIN p.emissao e WHERE e.id IS NULL AND p.status = 'ELEGIVEL'")
+	@Query("SELECT p FROM Proposta p LEFT JOIN p.cartao c WHERE c.id IS NULL AND p.status = 'ELEGIVEL'")
 	public Collection<Proposta> obterPropostasSemEmissao();
 
 }

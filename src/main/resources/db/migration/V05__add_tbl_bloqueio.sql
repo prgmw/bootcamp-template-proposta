@@ -1,0 +1,10 @@
+CREATE TABLE bloqueio (
+   id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+   cartao_id BIGINT(20) NOT NULL,
+   ip VARCHAR(100) NOT NULL,
+   agente_usuario VARCHAR(100) NOT NULL,
+   data_bloqueio TIMESTAMP NOT NULL,
+   FOREIGN KEY (cartao_id) REFERENCES bloqueio(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

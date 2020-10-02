@@ -1,5 +1,7 @@
 package br.com.zup.bootcamp.proposta.domain.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -22,8 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "emissao")
-public class Emissao {
+@Table(name = "bloqueio")
+public class Bloqueio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +33,20 @@ public class Emissao {
 
 	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name = "proposta_id")
-	private Proposta proposta;
+	@JoinColumn(name = "cartao_id")
+	private Cartao cartao;
 
-	@NotNull
-	@Column(name = "emissao_id")
-	private String emissaoId;
+	@Column(name = "ip")
+	private String ip;
+	
+	@Column(name = "agente_usuario")
+	private String agenteUsuario;
+
+	@Column(name = "data_criacao")
+	private LocalDateTime dataCriacao;
+
+	public void setProposta(Cartao cartao) {
+		this.cartao = cartao;
+	}
 
 }
