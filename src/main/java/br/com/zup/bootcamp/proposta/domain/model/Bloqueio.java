@@ -3,7 +3,10 @@ package br.com.zup.bootcamp.proposta.domain.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,14 +39,24 @@ public class Bloqueio {
 	@JoinColumn(name = "cartao_id")
 	private Cartao cartao;
 
-	@Column(name = "ip")
-	private String ip;
-	
-	@Column(name = "agente_usuario")
-	private String agenteUsuario;
+	@Embedded
+	private InformacoesAcesso informacoes;
 
-	@Column(name = "data_criacao")
-	private LocalDateTime dataCriacao;
+	@Builder.Default
+	@Column(name = "notificado")
+	@Enumerated(EnumType.STRING)
+	private SimNao notificado = SimNao.N;
+
+	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
+	private BloqueadoDesbloqueado status;
+
+	@Column(name = "data_acao")
+	private LocalDateTime dataAcao;
+
+	public void setNotificado(SimNao notificao) {
+		this.notificado = notificao;
+	}
 
 	public void setProposta(Cartao cartao) {
 		this.cartao = cartao;

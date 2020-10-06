@@ -40,6 +40,10 @@ public class Cartao {
 	@JoinColumn(name = "proposta_id")
 	private Proposta proposta;
 
+	@JsonBackReference
+	@OneToOne(mappedBy = "cartao", cascade = CascadeType.ALL)
+	private Bloqueio bloqueio;
+
 	@NotNull
 	@Column(name = "cartao")
 	private String cartao;

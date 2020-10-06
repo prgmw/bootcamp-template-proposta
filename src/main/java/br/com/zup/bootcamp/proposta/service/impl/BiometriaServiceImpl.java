@@ -47,9 +47,9 @@ public class BiometriaServiceImpl implements IBiometriaService {
 				.filter(b -> b.getIdentificador().equals(biometria.getIdentificador())).collect(Collectors.toList());
 
 		if (biometriaAssociada.size() > 0) {
-			logger.error(mensagem.get("proposta.biometria.invalida"), idCartao);
+			logger.error(mensagem.get("biometria.invalida"), idCartao);
 			throw new ApiErroException(HttpStatus.BAD_REQUEST,
-					MessageFormat.format(mensagem.get("proposta.biometria.invalida"), idCartao));
+					MessageFormat.format(mensagem.get("biometria.invalida"), idCartao));
 		}
 
 		Biometria novaBiometria = Biometria.builder()

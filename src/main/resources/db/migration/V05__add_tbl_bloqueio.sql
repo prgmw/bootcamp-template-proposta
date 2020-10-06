@@ -3,7 +3,9 @@ CREATE TABLE bloqueio (
    cartao_id BIGINT(20) NOT NULL,
    ip VARCHAR(100) NOT NULL,
    agente_usuario VARCHAR(100) NOT NULL,
-   data_bloqueio TIMESTAMP NOT NULL,
+   data_acao TIMESTAMP NOT NULL,
+   status VARCHAR(20) NOT NULL,
+   notificado VARCHAR(1) NOT NULL DEFAULT 'N',
    FOREIGN KEY (cartao_id) REFERENCES bloqueio(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
